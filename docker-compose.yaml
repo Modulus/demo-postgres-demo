@@ -1,0 +1,29 @@
+version: "3.8"
+services:
+  postgres:
+    image: postgres:13.1
+    container_name: postgres
+    volumes:
+      - /tmp/postgres_data_users/:/var/lib/postgresql/data
+      - ${PWD}/db/:/tmp/
+    ports:
+      - "5432:5432"
+    restart: always
+    environment:
+      POSTGRES_USER: demo
+      POSTGRES_DB: demo
+      POSTGRES_PASSWORD: demo
+    # command: postgres -c 'max_connections=10'
+    networks:
+      - deno-demo
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8090:8080
+    networks:
+      - deno-demo
+
+networks:
+  deno-demo:
+    driver: bridge
