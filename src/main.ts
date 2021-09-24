@@ -8,7 +8,6 @@ import { sleep } from "https://deno.land/x/sleep/mod.ts";
 
 
 const DATABASE_URL = Deno.env.get("DATABASE_URL") || 'postgresql://demo:demo@localhost:5432/demo'
-
 log.info("DATABASE_URL = " + DATABASE_URL)
 
 
@@ -20,24 +19,51 @@ let connection = new PostgresConnector({
 })
 
 
+await log.setup({
+  handlers: {
+    console: new log.handlers.ConsoleHandler("INFO"),
+  },
+
+  loggers: {
+    // configure default logger available via short-hand methods above.
+    default: {
+      level: "INFO",
+      handlers: ["console"],
+    },
+  },
+});
+
 const quoteStorage = new QuoteStorage(connection)
-await quoteStorage.initalize()
+
+try {
+  await quoteStorage.initalize()
+
+} catch(e) {
+  log.error("Failed to initialize database: "+JSON.stringify(e))
+  throw(e)
+}
 
 do {
   log.info("Fetching quote")
   const quotes = await quoteGenerator.getQuotes()
 
   log.info("Data fetched: " + JSON.stringify(quotes))
-
-  for ( const index in quotes){
-    const quote = quotes[index]
-    log.info("Saving this quote: " + quote )
-    let savedQuote = await quoteStorage.saveQuote(quote)
-    log.info("Quote saved: " + JSON.stringify(savedQuote))
+  try {
+    for ( const index in quotes){
+      const quote = quotes[index]
+      log.info("Saving this quote: " + quote )
+      let savedQuote = await quoteStorage.saveQuote(quote)
+      log.info("Quote saved: " + JSON.stringify(savedQuote))
+    }
+  
+  
+    await sleep(5)
+  }
+  catch (e){
+    console.error("Failed to connect to database")
+    throw(e)
   }
 
-
-  await sleep(5)
 
 }while(true)
 

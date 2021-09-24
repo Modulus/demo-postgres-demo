@@ -24,53 +24,79 @@ class QuoteStorage {
     }
 
     async initalize() : Promise<void>{
+        log.info("Initializing database")
         const db = new Database(this.connector)
-        log.info("Linking with database")
+        log.debug("Linking with database")
         db.link([Quote]);
 
-        log.info("Syncing")
+        log.debug("Syncing")
         await db.sync({ drop: false }); 
         await db.close();
 
     }
 
     async saveQuote(quote: string) : Promise<Quote> {
+        log.debug("Saving quote")
+        log.debug("Connection to database")
+
         const db = new Database(this.connector)
         const savedQuote =  await Quote.create({
             quote: quote,
           });  
+
         await db.close();
+        log.debug("Connection closed!")
+
         return savedQuote
 
     }
 
     async getQuote(id: string){
+        log.debug("Fetching quote")
+        log.debug("Connection to database")
+
         const db = new Database(this.connector)
         const savedQuote =  await Quote.select("id", "quote").where("id", id);  
+
         await db.close();
+        log.debug("Connection closed!")
+
         return savedQuote
     }
 
     async deleteQuote(id : any){
+        log.debug("Deleting quote")
+        log.debug("Connection to database")
+
         const db = new Database(this.connector)
         const deletedStuff =  await Quote.deleteById(id)
+        log.debug("Connection closed!")
+
         return deletedStuff
     }
 
     async countQuotes() : Promise<number> {
+        log.debug("Counting quotes")
+        log.debug("Connection to database")
         const db = new Database(this.connector)
         const count =  await Quote.count()
 
         await db.close()
+        log.debug("Connection closed!")
+
 
         return count
     }
 
     async getAll() : Promise<Quote[]> {
+        log.debug("Counting quotes")
+        log.debug("Connection to database")
+
         const db = new Database(this.connector)
         const quotes =  await Quote.all()
 
         await db.close()
+        log.debug("Connection closed!")
 
         return quotes
     }

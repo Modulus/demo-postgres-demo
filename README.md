@@ -12,3 +12,9 @@ deno compile --allow-env=DATABASE_URL --allow-net=loremricksum.com,localhost -o 
 # Docker 
 docker build -t app .
 docker run --network=deno-postgres-demo_deno-demo --rm --name app -e DATABASE_URL=postgresql://demo:demo@postgres:5432/demo app  
+
+
+docker build -t app-raw .
+docker build -t app-bones -f ./Dockerfile.node .
+
+docker images -f label=app=deno-demo
