@@ -22,8 +22,9 @@ import * as log from "https://deno.land/std@0.108.0/log/mod.ts";
 
 
 Deno.test("Verify that saveQuote works", async () => {
+    const CONNECTION_URL = Deno.env.get("DATABASE_URL") 
     let connector = new PostgresConnector({
-        uri: 'postgresql://demo:demo@localhost:5432/demo',
+        uri: CONNECTION_URL as string,
       })
     const quoteStorage = new QuoteStorage(connector)
     await quoteStorage.initalize(true)
