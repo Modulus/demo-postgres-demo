@@ -1,9 +1,9 @@
 import { assertEquals, assert, assertExists, assertThrowsAsync} from "https://deno.land/std@0.108.0/testing/asserts.ts";
 
 
-import { QuoteStorage, Quote} from "../src/storage.ts"
+import { QuoteStorage} from "../src/storage.ts"
 
-import { DataTypes, Database, Model, PostgresConnector } from 'https://deno.land/x/denodb/mod.ts';
+import { PostgresConnector } from 'https://deno.land/x/denodb/mod.ts';
 import * as log from "https://deno.land/std@0.108.0/log/mod.ts";
 
 // Deno.test("Verify that error stops program when postgres is not reacheable", async() => {

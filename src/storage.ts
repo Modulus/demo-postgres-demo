@@ -9,7 +9,7 @@ class Quote extends Model {
       id: { primaryKey: true, autoIncrement: true },
       quote: {
         type: DataTypes.STRING,
-        length: 512
+        length: 1024
       }
     };
   
