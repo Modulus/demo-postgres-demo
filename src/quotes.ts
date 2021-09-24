@@ -2,7 +2,7 @@ import * as log from "https://deno.land/std@0.108.0/log/mod.ts";
 
 
 
-class Quotes {
+class QuoteGenerator {
 
     private url: string
 
@@ -43,5 +43,5 @@ class Quotes {
 
 
 export {
-    Quotes
+    QuoteGenerator
 }
