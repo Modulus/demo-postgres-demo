@@ -7,15 +7,19 @@ import { PostgresConnector } from 'https://deno.land/x/denodb/mod.ts';
 import { sleep } from "https://deno.land/x/sleep/mod.ts";
 
 
+const DATABASE_URL = Deno.env.get("DATABASE_URL") || 'postgresql://demo:demo@localhost:5432/demo'
+
+log.info("DATABASE_URL = " + DATABASE_URL)
+
+
+
 const quoteGenerator = new QuoteGenerator()
 
 let connection = new PostgresConnector({
-  database: 'demo',
-  host: 'localhost',
-  username: 'demo',
-  password: 'demo',
-  port: 5432, // optional
+  uri: DATABASE_URL,
 })
+
+
 const quoteStorage = new QuoteStorage(connection)
 await quoteStorage.initalize()
 

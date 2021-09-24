@@ -8,13 +8,9 @@ import * as log from "https://deno.land/std@0.108.0/log/mod.ts";
 
 
 Deno.test("Verify that saveQuote works", async () => {
-    const connector = new PostgresConnector({
-        database: 'demo',
-        host: 'localhost',
-        username: 'demo',
-        password: 'demo',
-        port: 5432, // optional
-    })
+    let connector = new PostgresConnector({
+        uri: 'postgresql://demo:demo@localhost:5432/demo',
+      })
     const quoteStorage = new QuoteStorage(connector)
     await quoteStorage.initalize()
 
