@@ -47,7 +47,7 @@ jobs:
           deno cache src/main.ts
           deno test --allow-env=DATABASE_URL --allow-net=loremricksum.com,localhost
   package:
-    needs: build 
+    needs: test 
     runs-on: ubuntu-latest    
     steps:
       - uses: actions/checkout@v2
