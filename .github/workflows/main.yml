@@ -45,4 +45,4 @@ jobs:
       - name: Run a multi-line script
         run: |
           deno cache src/main.ts
-          deno test --allow-net=loremricksum.com,localhost src/main.ts
+          deno test --allow-env=DATABASE_URL --allow-net=loremricksum.com,localhost src/main.ts
