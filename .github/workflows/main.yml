@@ -51,13 +51,13 @@ jobs:
     runs-on: ubuntu-latest    
     steps:
       - uses: actions/checkout@v2
-      # - name: login
-      #   uses: docker/login-action@v1
-      #   with: 
-      #     registry: ghcr.io
-      #     username: ${{ github.repository_owner }}
-      #     password: ${{ secrets.CR_PAT }}
+      - name: login
+        uses: docker/login-action@v1
+        with: 
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.CR_PAT }}
       - name: Docker build producer
         run: docker build -t ghcr.io/modulus/deno-postgres-demo:latest -f Dockerfile .
-      # - name: Docker push
-      #   run: docker push ghcr.io/modulus/deno-postgres-demo:latest
+      - name: Docker push
+        run: docker push ghcr.io/modulus/deno-postgres-demo:latest
