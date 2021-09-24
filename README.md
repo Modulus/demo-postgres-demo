@@ -1,12 +1,12 @@
 # Run code
-deno run --allow-net=loremricksum.com,localhost  src/main.ts
+deno run --allow-env=DATABASE_URL --allow-net=loremricksum.com,localhost  src/main.ts
 
 
 # Run tests
-deno test --allow-net="loremricksum.com" 
+deno test --allow-env=DATABASE_URL --allow-net=loremricksum.com,localhost 
 
 # Compile to executable
-deno compile --allow-net=loremricksum.com,localhost -o quotes main.ts
+deno compile --allow-env=DATABASE_URL --allow-net=loremricksum.com,localhost -o quotes src/main.ts
 
 
 # Docker 
