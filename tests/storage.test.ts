@@ -1,4 +1,4 @@
-import { assertEquals, assert, assertExists} from "https://deno.land/std@0.108.0/testing/asserts.ts";
+import { assertEquals, assert, assertExists, assertThrowsAsync} from "https://deno.land/std@0.108.0/testing/asserts.ts";
 
 
 import { QuoteStorage, Quote} from "../src/storage.ts"
@@ -6,13 +6,27 @@ import { QuoteStorage, Quote} from "../src/storage.ts"
 import { DataTypes, Database, Model, PostgresConnector } from 'https://deno.land/x/denodb/mod.ts';
 import * as log from "https://deno.land/std@0.108.0/log/mod.ts";
 
+// Deno.test("Verify that error stops program when postgres is not reacheable", async() => {
+//     let connector = new PostgresConnector({
+//         uri: 'postgresql://demo:demo@neieneidsjasadf:5432/demo',
+//       })
+//       const quoteStorage = new QuoteStorage(connector)
+
+//       assertThrowsAsync( 
+//          async () => {  
+//             quoteStorage.initalize()
+//         }, Error, "PermissionDenied: Requires net access to 'neieneidsjasadf:5432', run again with the --allow-net flag" 
+//     )
+// })
+
+
 
 Deno.test("Verify that saveQuote works", async () => {
     let connector = new PostgresConnector({
         uri: 'postgresql://demo:demo@localhost:5432/demo',
       })
     const quoteStorage = new QuoteStorage(connector)
-    await quoteStorage.initalize()
+    await quoteStorage.initalize(true)
 
     const quote = "Noo not that!"
     const savedQuote = await quoteStorage.saveQuote(quote)

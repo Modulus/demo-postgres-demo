@@ -23,14 +23,14 @@ class QuoteStorage {
         this.connector = connector
     }
 
-    async initalize() : Promise<void>{
+    async initalize(drop: boolean = false) : Promise<void>{
         log.info("Initializing database")
         const db = new Database(this.connector)
         log.debug("Linking with database")
         db.link([Quote]);
 
         log.debug("Syncing")
-        await db.sync({ drop: false }); 
+        await db.sync({ drop: drop }); 
         await db.close();
 
     }
