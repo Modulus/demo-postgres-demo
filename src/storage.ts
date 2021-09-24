@@ -43,6 +43,37 @@ class QuoteStorage {
         return savedQuote
 
     }
+
+    async getQuote(id: string){
+        const db = new Database(this.connector)
+        const savedQuote =  await Quote.select("id", "quote").where("id", id);  
+        await db.close();
+        return savedQuote
+    }
+
+    async deleteQuote(id : any){
+        const db = new Database(this.connector)
+        const deletedStuff =  await Quote.deleteById(id)
+        return deletedStuff
+    }
+
+    async countQuotes() : Promise<number> {
+        const db = new Database(this.connector)
+        const count =  await Quote.count()
+
+        await db.close()
+
+        return count
+    }
+
+    async getAll() : Promise<Quote[]> {
+        const db = new Database(this.connector)
+        const quotes =  await Quote.all()
+
+        await db.close()
+
+        return quotes
+    }
 }
 
 export {
