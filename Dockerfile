@@ -6,7 +6,7 @@ COPY . .
 
 RUN deno cache src/main.ts
 # CMD deno run --allow-env=DATABASE_URL --allow-net=loremricksum.com,postgres,localhost src/main.ts
-RUN deno compile --allow-env=DATABASE_URL --allow-net=loremricksum.com,postgres,localhost -o quotes src/main.ts
+RUN deno compile --allow-env=DATABASE_URL --allow-net=loremricksum.com,postgres,localhost,postgres.demo.svc.cluster.local -o quotes src/main.ts
 
 
 FROM gcr.io/distroless/cc-debian10
@@ -17,5 +17,6 @@ WORKDIR /opt/app
 
 COPY --from=builder /opt/app .
 
-CMD ./quotes
+# CMD ["/busybox/sh", "-c", "./quotes"]
+ENTRYPOINT [ "/opt/app/quotes" ]
 
