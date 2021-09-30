@@ -3,10 +3,10 @@ name: Tags
 on:
   push:
     tags:
-      - "v[0-9].[0-9].[0-9]"
+      - "release-[0-9].[0-9].[0-9]"
   pull_request:
     tags: 
-      - "v[0-9].[0-9].[0-9]"
+      - "release-[0-9].[0-9].[0-9]"
 env:
   CARGO_TERM_COLOR: always
 jobs:
@@ -24,7 +24,7 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.CR_PAT }}
       - name: Docker build
-        run: docker build -t ghcr.io/modulus/deno-postgres-demo::${{ steps.vars.outputs.tag }} -f Dockerfile .
+        run: docker build -t ghcr.io/modulus/deno-postgres-demo:${{ steps.vars.outputs.tag }} -f Dockerfile .
       - name: Docker push
         run: docker push ghcr.io/modulus/deno-postgres-demo:${{ steps.vars.outputs.tag }}
 
