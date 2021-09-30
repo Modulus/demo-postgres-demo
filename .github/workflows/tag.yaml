@@ -11,6 +11,8 @@ env:
   CARGO_TERM_COLOR: always
 jobs:
   test:
+    env:
+      DATABASE_URL: postgres://whatdo:youmean@localhost/potato
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     services:
