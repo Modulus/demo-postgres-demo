@@ -4,6 +4,7 @@ metadata:
   name: demo
   namespace: demo
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: demo
@@ -14,7 +15,7 @@ spec:
     spec:
       containers:
       - name: demo
-        image: ghcr.io/modulus/deno-postgres-demo:0.0.3
+        image: ghcr.io/modulus/deno-postgres-demo:0.0.4
         resources:
           requests:
             memory: "256Mi"
