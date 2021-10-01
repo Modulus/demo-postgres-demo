@@ -5,7 +5,7 @@ LABEL app=deno-demo
 COPY . . 
 
 RUN deno cache src/main.ts
-CMD deno run --allow-env=DATABASE_URL --allow-net=loremricksum.com,postgres,localhost,postgres.demo.svc.cluster.local src/main.ts
+CMD deno run --allow-env=DATABASE_URL --allow-net=${ALLOW_NET:-loremricksum.com,postgres,localhost,postgres.demo.svc.cluster.local} src/main.ts
 
 
 

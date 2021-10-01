@@ -25,4 +25,6 @@ spec:
             cpu: "1000m"
         env:
           - name: DATABASE_URL
-            value: postgresql://quotes:quotes@postgres.demo.svc.cluster.local:5432/quotes
+            value: postgresql://quotes:quotes@postgres-postgresql.demo.svc.cluster.local:5432/quotes
+          - name: ALLOW_NET
+            value: loremricksum.com,postgres,localhost,postgres.demo.svc.cluster.local
